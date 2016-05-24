@@ -14,6 +14,7 @@
     <script src="http://static.runoob.com/assets/jquery/2.0.3/jquery.min.js"></script>
     <script src="http://static.runoob.com/assets/foundation-5.5.3/js/foundation.min.js"></script>
     <script src="http://static.runoob.com/assets/foundation-5.5.3/js/vendor/modernizr.js"></script>
+    <link rel="stylesheet" href="http://static.runoob.com/assets/foundation-icons/foundation-icons.css">
 </head>
 <body>
 
@@ -24,24 +25,82 @@
             <div class="large-3 medium-3 columns">
                 <img src="./pic/myphoto.png" alt="Paris" width="170" height="170">
             </div>
-            <div class="medium-6 columns">
+            <div class="medium-7 columns">
                 <h4>ZiJian Jiang (NeZha)</h4>
                 <p>Shanghai Maritime University.</p>
-                <p>I worked for IBM and EA in 2013-2014 as software engineer. Principle 3D algorithm developer and architect at Lubansoft in 2015. Co-founder of PongoThink and consultant of PVLab at Chinese Academy of Sciences </p>
+                <p>I worked for IBM and EA in 2013-2014 as software engineer(mainly focus on Graphics& 3D printing tech). Principle 3D algorithm developer & architect at Lubansoft in 2015. Co-founder of PongoThink and consultant of PVLab at Chinese Academy of Sciences </p>
             </div>
-            <div class="medium-3 columns"></div>
+            <div class="medium-2 columns"></div>
         </div>
 
     </div>
 </div>
 
+<script>
+    demos = document.getElementsByClassName("demoPage");
+    function changePage(v) {
+        for (var d in demos){
+            demos[d].src = "";
+        }
+        switch (v) {
+            case "demo":
+                document.getElementById("demo").src="examples/PBD_cloth_ball.html";
+                break;
+            case "demo2":
+                document.getElementById("demo2").src="examples/PBD_cloth.html";
+                break;
+            case "demo3":
+            document.getElementById("demo3").src="examples/SM_softbody_Mario.html";
+                break;
+            case "demo4":
+                document.getElementById("demo4").src="examples/SM_softbody_Mario_Mushroom.html";
+                break;
+            default:
+                break;
+        }
+    }
+</script>
+
 <div class="row">
-    <p>My current interests in Physics-Based Animation ,particularly on real-time approaches. Including rigid body, cloth, softbody(continuum material), fluids and fracturing simulation.</p>
-    <p>Here is my work</p>
+    <p>My current interests in Physics-Based Animation & Interactive 3D ,particularly on real-time approaches. Including rigid body, cloth, softbody(continuum material), fluids and fracturing simulation.</p>
+    <h3>Here is my work</h3>
+    <ul class="accordion" data-accordion>
+        <li class="accordion-navigation">
+            <a href="#demo" onclick="changePage('demo')"><i class="fi-play-circle"></i> Cloth simulation</a>
+            <div class="content active">
+                <iframe id="demo"  class="demoPage" src="examples/PBD_cloth_ball.html" width="100%" height="600"}></iframe>
+            </div>
+        </li>
+        <li class="accordion-navigation">
+            <a href="#demo2" onclick="changePage('demo2')"><i class="fi-play-circle"></i> Cloth simulation 2</a>
+            <div class="content">
+                <iframe id="demo2" class="demoPage" src="" width="100%" height="600"></iframe>
+            </div>
+        </li>
+        <li class="accordion-navigation">
+            <a href="#demo3" onclick="changePage('demo3')"><i class="fi-play-circle"></i> Softbody simulation - Mario</a>
+            <div class="content">
+                <iframe id="demo3" class="demoPage" src="" width="100%" height="600"></iframe>
+            </div>
+        </li>
+        <li class="accordion-navigation">
+            <a href="#demo4" onclick="changePage('demo4')"><i class="fi-play-circle"></i> Softbody simulation - Mario Mushroom</a>
+            <div class="content">
+                <iframe id="demo4" class="demoPage" src="" width="100%" height="600"></iframe>
+            </div>
+        </li>
+    </ul>
 </div>
-<div>
-    <iframe src="examples/PBD_cloth_ball.html" frameborder="0" width="100%" height="600"></iframe>
-</div>
+
+
+
+
+<script>
+    $(document).ready(function() {
+        $(document).foundation();
+    })
+
+</script>
 
 </body>
 
