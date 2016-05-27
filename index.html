@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--#//              ______    _____            _________       _____   _____           -->
-    <!--#//            /     /_  /    /            \___    /      /    /__/    /            -->
-    <!--#//           /        \/    /    ___        /    /      /            /    ___      -->
-    <!--#//          /     / \      /    /\__\      /    /___   /    ___     /    /   \     -->
-    <!--#//        _/____ /   \___ /    _\___     _/_______ / _/___ / _/___ /    _\___/\_   -->
+    <!--#//              ______    _____            _________       _____   _____-->
+    <!--#//            /     /_  /    /            \___    /      /    /__/    /-->
+    <!--#//           /        \/    /    ___        /    /      /            /    ___-->
+    <!--#//          /     / \      /    /\__\      /    /___   /    ___     /    /   \-->
+    <!--#//        _/____ /   \___ /    _\___     _/_______ / _/___ / _/___ /    _\___/\_-->
+    <!--#//        revised on 5/27/2016  All rights reserved by @NeZha-->
 
     <title>NeZha's Website</title>
     <meta charset="utf-8">
@@ -37,23 +38,26 @@
 </div>
 
 <script>
-    demos = document.getElementsByClassName("demoPage");
+    demos = document.getElementsByClassName("demopage");
     function changePage(v) {
         for (var d in demos){
             demos[d].src = "";
         }
         switch (v) {
             case "demo":
-                document.getElementById("demo").src="examples/PBD_cloth_ball.html";
+                document.getElementById("demo").src="examples/cloth_basic.html";
                 break;
             case "demo2":
-                document.getElementById("demo2").src="examples/PBD_cloth.html";
+                document.getElementById("demo2").src="examples/pbd_cloth_ball.html";
                 break;
             case "demo3":
-            document.getElementById("demo3").src="examples/SM_softbody_Mario.html";
+                document.getElementById("demo3").src="examples/softbody_deform.html";
                 break;
             case "demo4":
-                document.getElementById("demo4").src="examples/SM_softbody_Mario_Mushroom.html";
+                document.getElementById("demo4").src="examples/projective_cloth_basic.html";
+                break;
+            case "demo5":
+                document.getElementById("demo5").src="examples/texture_area_light.html";
                 break;
             default:
                 break;
@@ -68,25 +72,31 @@
         <li class="accordion-navigation">
             <a href="#demo" onclick="changePage('demo')"><i class="fi-play-circle"></i> Cloth simulation</a>
             <div class="content active">
-                <iframe id="demo"  class="demoPage" src="examples/PBD_cloth_ball.html" width="100%" height="600"}></iframe>
+                <iframe id="demo"  class="demopage" src="examples/cloth_basic.html" width="100%" height="600"}></iframe>
             </div>
         </li>
         <li class="accordion-navigation">
             <a href="#demo2" onclick="changePage('demo2')"><i class="fi-play-circle"></i> Cloth simulation 2</a>
             <div class="content">
-                <iframe id="demo2" class="demoPage" src="" width="100%" height="600"></iframe>
+                <iframe id="demo2" class="demopage" src="" width="100%" height="600"></iframe>
             </div>
         </li>
         <li class="accordion-navigation">
             <a href="#demo3" onclick="changePage('demo3')"><i class="fi-play-circle"></i> Softbody simulation - Mario</a>
             <div class="content">
-                <iframe id="demo3" class="demoPage" src="" width="100%" height="600"></iframe>
+                <iframe id="demo3" class="demopage" src="" width="100%" height="600"></iframe>
             </div>
         </li>
         <li class="accordion-navigation">
-            <a href="#demo4" onclick="changePage('demo4')"><i class="fi-play-circle"></i> Softbody simulation - Mario Mushroom</a>
+            <a href="#demo4" onclick="changePage('demo4')"><i class="fi-play-circle"></i> Cloth by projective method</a>
             <div class="content">
-                <iframe id="demo4" class="demoPage" src="" width="100%" height="600"></iframe>
+                <iframe id="demo4" class="demopage" src="" width="100%" height="600"></iframe>
+            </div>
+        </li>
+        <li class="accordion-navigation">
+            <a href="#demo5" onclick="changePage('demo5')"><i class="fi-play-circle"></i> Deferred Rendering Area-lights <span style="color: red;">(with music <i class="fi-music"></i>)</span></a>
+            <div class="content">
+                <iframe id="demo5" class="demopage" src="" width="100%" height="600"></iframe>
             </div>
         </li>
     </ul>
