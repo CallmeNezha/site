@@ -59,18 +59,21 @@
 <div id="loading">Loading... please wait...</div>
 
 <script style="text/javascript" src="../js/libs/Detector.js"></script>
-<script>
+<script style="text/javascript">
     if ( !Detector.webgl )
     {
-        var glnode = document.getElementById("glshow");
-        glnode.parentNode.removeChild(glnode);
+        document.getElementById("loading").style.display = 'none';
         Detector.addGetWebGLMessage();
+        if (window.stop)
+            window.stop();
+        else
+            document.execCommand("Stop");
     }
 </script>
 <div id="glshow">
-    <script style="text/javascript" src="../js/libs/three.js"></script>
-    <script style="text/javascript" src="../js/libs/stats.min.js"></script>
-    <script style="text/javascript" src="../js/libs/dat.gui.min.js"></script>
+    <script src="http://cdn.bootcss.com/three.js/r76/three.min.js"></script>
+    <script src="http://cdn.bootcss.com/stats.js/r16/Stats.js"></script>
+    <script src="http://cdn.bootcss.com/dat-gui/0.5.1/dat.gui.js"></script>
     <script style="text/javascript" src="../js/libs/OrbitControls.js"></script>
     <script style="text/javascript" src="../js/libs/STLLoader.js"></script>
     <script style="text/javascript" src="../js/softbody_deform.min.js"></script>
