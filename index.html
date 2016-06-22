@@ -46,7 +46,7 @@
         }
         switch (v) {
             case "demo":
-                document.getElementById("demo").src="examples/cloth_basic.html";
+                document.getElementById("demo").src="examples/particles_beta.html";
                 break;
             case "demo2":
                 document.getElementById("demo2").src="examples/pbd_cloth_ball.html";
@@ -58,7 +58,7 @@
                 document.getElementById("demo4").src="examples/projective_cloth_basic.html";
                 break;
             case "demo5":
-                document.getElementById("demo5").src="examples/particles_beta.html";
+                document.getElementById("demo5").src="examples/cloth_basic.html";
                 break;
             case "demo6":
                 document.getElementById("demo6").src="examples/mammoth.html";
@@ -75,62 +75,188 @@
     }
 </script>
 
+
 <div class="row">
-    <p>My current interests in Physics-Based Animation & Interactive 3D ,particularly on real-time approaches.
+    <p>My current interests in
+        Physics-Based Animation & Interactive 3D ,particularly on real-time approaches.
         Including rigid body, cloth, softbody(continuum material), fluids and fracturing simulation.
-        Feel free to contact me: <i class="fi-mail"></i> <a herf="mailto:783627014@qq.com">783627014@qq.com</a>
+        Machine learning & Data mining.
+        Numerical methods for science.
+        <br/>Feel free to contact me: <i class="fi-mail"></i> <a herf="mailto:783627014@qq.com">783627014@qq.com</a>
     </p>
-    <h3>Here is my work</h3>
-    <ul class="accordion" data-accordion>
-        <li class="accordion-navigation">
-            <a href="#demo" onclick="changePage('demo')"><i class="fi-play-circle"></i> Cloth simulation</a>
-            <div class="content active">
-                <iframe id="demo"  class="demopage" src="examples/cloth_basic.html" width="100%" height="600"}></iframe>
-            </div>
-        </li>
-        <li class="accordion-navigation">
-            <a href="#demo2" onclick="changePage('demo2')"><i class="fi-play-circle"></i> Cloth simulation 2</a>
-            <div class="content">
-                <iframe id="demo2" class="demopage" src="" width="100%" height="600"></iframe>
-            </div>
-        </li>
-        <li class="accordion-navigation">
-            <a href="#demo3" onclick="changePage('demo3')"><i class="fi-play-circle"></i> Softbody simulation - Mario</a>
-            <div class="content">
-                <iframe id="demo3" class="demopage" src="" width="100%" height="600"></iframe>
-            </div>
-        </li>
-        <li class="accordion-navigation">
-            <a href="#demo4" onclick="changePage('demo4')"><i class="fi-play-circle"></i> Cloth by projective method</a>
-            <div class="content">
-                <iframe id="demo4" class="demopage" src="" width="100%" height="600"></iframe>
-            </div>
-        </li>
-        <li class="accordion-navigation">
-            <a href="#demo5" onclick="changePage('demo5')"><i class="fi-play-circle"></i> Wind tunnel with 4K particles</a>
-            <div class="content">
-                <iframe id="demo5" class="demopage" src="" width="100%" height="600"></iframe>
-            </div>
-        </li>
-        <li class="accordion-navigation">
-            <a href="#demo6" onclick="changePage('demo6')"><i class="fi-play-circle"></i>  Mammoth SSAO</a>
-            <div class="content">
-                <iframe id="demo6" class="demopage" src="" width="100%" height="600"></iframe>
-            </div>
-        </li>
-        <li class="accordion-navigation">
-            <a href="#demo7" onclick="changePage('demo7')"><i class="fi-play-circle"></i> Deferred Rendering Area-lights <span style="color: red;">(with music <i class="fi-music"></i>)</span> -contributed</a>
-            <div class="content">
-                <iframe id="demo7" class="demopage" src="" width="100%" height="600"></iframe>
-            </div>
-        </li>
-        <li class="accordion-navigation">
-            <a href="#demo8" onclick="changePage('demo8')"><i class="fi-foot"></i> More work is in progress... :P</a>
-            <div class="content">
-                <iframe id="demo8" class="demopage" src="" width="100%" height="600"></iframe>
-            </div>
-        </li>
+    <ul class="tabs" data-tab>
+        <h3>Here is my work</h3>
+        <li class="tab-title active"><a href="#home">Physics Simulation & 3D Graphics</a></li>
+        <li class="tab-title"><a href="#menu1">JS CUDA Library</a></li>
     </ul>
+    <div class="tabs-content">
+        <div class="content active" id="home">
+            <ul class="accordion" data-accordion>
+                <li class="accordion-navigation">
+                    <a href="#demo" onclick="changePage('demo')"><i class="fi-play-circle"></i> Wind tunnel with 4K particles</a>
+                    <div class="content active">
+                        <iframe id="demo"  class="demopage" src="examples/particles_beta.html" width="100%" height="600"}></iframe>
+                    </div>
+                </li>
+                <li class="accordion-navigation">
+                    <a href="#demo2" onclick="changePage('demo2')"><i class="fi-play-circle"></i> Cloth simulation 2</a>
+                    <div class="content">
+                        <iframe id="demo2" class="demopage" src="" width="100%" height="600"></iframe>
+                    </div>
+                </li>
+                <li class="accordion-navigation">
+                    <a href="#demo3" onclick="changePage('demo3')"><i class="fi-play-circle"></i> Softbody simulation - Mario</a>
+                    <div class="content">
+                        <iframe id="demo3" class="demopage" src="" width="100%" height="600"></iframe>
+                    </div>
+                </li>
+                <li class="accordion-navigation">
+                    <a href="#demo4" onclick="changePage('demo4')"><i class="fi-play-circle"></i> Cloth by projective method</a>
+                    <div class="content">
+                        <iframe id="demo4" class="demopage" src="" width="100%" height="600"></iframe>
+                    </div>
+                </li>
+                <li class="accordion-navigation">
+                    <a href="#demo5" onclick="changePage('demo5')"><i class="fi-play-circle"></i> Cloth simulation</a>
+                    <div class="content">
+                        <iframe id="demo5" class="demopage" src="" width="100%" height="600"></iframe>
+                    </div>
+                </li>
+                <li class="accordion-navigation">
+                    <a href="#demo6" onclick="changePage('demo6')"><i class="fi-play-circle"></i>  Mammoth SSAO</a>
+                    <div class="content">
+                        <iframe id="demo6" class="demopage" src="" width="100%" height="600"></iframe>
+                    </div>
+                </li>
+                <li class="accordion-navigation">
+                    <a href="#demo7" onclick="changePage('demo7')"><i class="fi-play-circle"></i> Deferred Rendering Area-lights <span style="color: red;">(with music <i class="fi-music"></i>)</span> -contributed</a>
+                    <div class="content">
+                        <iframe id="demo7" class="demopage" src="" width="100%" height="600"></iframe>
+                    </div>
+                </li>
+                <li class="accordion-navigation">
+                    <a href="#demo8" onclick="changePage('demo8')"><i class="fi-foot"></i> More work is in progress... :P</a>
+                    <div class="content">
+                        <iframe id="demo8" class="demopage" src="" width="100%" height="600"></iframe>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="content" id="menu1">
+            <h2>What is JC？ ( JS CUDA )</h2>
+            <p>JC is a NodeJs module for doing linear algebra (which mainly consists of vector and matrix operations) based on CUDA.
+
+            </p>
+            <p>It means you can easily use Javascript to bring your GPU down computing linear problems in parallel. In my experience, JC is <strong>5 - 1000 times faster</strong> than traditional CPU method thanks to huge development of modern GPU, and JC doesn't merely binding the CUDA ToolKit for using, it hides the relatively uncomprehensive BLAS routine or solvers' routine(in development) under the hood.
+
+            </p>
+            <p><strong>And most important one is</strong>: User can quickly deploy JC with very little effort instead of learning enormous and complicate API provided by CUDA Toolkit which is writen in C++.
+
+            </p>
+            <h2>What JC can do?</h2>
+            <ul>
+                <li><p>Level-1</p>
+                    <ol>
+                        <li>arbitrary dimension vector add</li>
+                        <li>arbitrary dimension vector dot product</li>
+                        <li>arbitrary dimension vector Euclidean Norm</li>
+                        <li>arbitrary dimension vector multiply scalar</li>
+                    </ol>
+                </li>
+                <li><p>Level-2</p>
+                    <ol>
+                        <li>arbitrary dimension vector tensor product</li>
+                        <li>arbitrary dimension matrix add</li>
+                        <li>arbitrary dimension matrix multiply scalar</li>
+                        <li>arbitrary dimension matrix multiply vector</li>
+                    </ol>
+                </li>
+                <li><p>Level-3</p>
+                    <ol>
+                        <li>arbitrary dimension matrix multiply matrix</li>
+                        <li>arbitrary dimension matrix multiply matrix ( Batched )</li>
+                    </ol>
+                </li>
+                <li><p>Solvers</p>
+                    <ol>
+                        <li>quick dense n x n matrix inverse, n is less than 32 ( Batched )</li>
+                        <li>dense n x n matrix LU decomposition &amp; solve linear system &amp; matrix inverse ( Batched )</li>
+                        <li>dense n x n matrix QR decomposition &amp; solve linear system &amp; matrix inverse ( Batched ) <em>Coming soon</em></li>
+                        <li>Sparse matrix solvers <em>Coming soon</em></li>
+                    </ol>
+                </li>
+            </ul>
+            <h2>Requirements</h2>
+            <ul>
+                <li>[x] Make sure your graphic card support CUDA v7.5 and compute capability is higher than 2.0, if you are not sure please refer to [<a href="https://developer.nvidia.com/cuda-gpus">https://developer.nvidia.com/cuda-gpus</a>]</li>
+                <li>[x] Have Nodejs v6.2.X installed</li>
+            </ul>
+            <h2>How to install?</h2>
+            <h3>Pre-build</h3>
+            <p>copy files in git ./Pre-build to any directory you like for example E:/Example/
+                1. <strong>jc.node</strong>  // NodeJs module
+                2. <strong>JSCUDA.dll</strong> // C++ binding part
+                3. <strong>JC.js</strong> // Javascript part
+
+            </p>
+            <h3>Build from source</h3>
+            <h2>Usage</h2>
+            <p>After copied related files to your module directory, all you have to do is require 'JC.js' as regular Node module.
+
+            </p>
+            <p>Javascript:
+            </p>
+            <pre><code class="lang-javascript">var JC = require( ${path_of_JC.js} )</code></pre>
+            <p>Coffeescript:
+            </p>
+            <pre><code class="lang-javascript">JC = require( ${path_of_JC.js} )</code></pre>
+            <p><strong>Attension:</strong> If you ignore the extension '.js', Node will require 'jc.node' instead, and 'jc.node' is Node's C++ binding part which offer basic data structures as well as basic linear functions supporting 'JC.js'. If you only want to use JC, please add '.js' explicitly.
+
+            </p>
+            <p>Then you can use it like this
+
+            </p>
+            <p>Coffeescript:
+            </p>
+<pre><code class="lang-coffeescript">#@@@ You can understand Host as CPU part, Device as GPU part)
+
+    JC = require( ${path_of_JC.js} )
+    testLength = 100
+    JC.cudaDeviceInit() # Preface
+
+    vAh = new Float32Array( ( Math.random() for num in [0...len] ) ) # Host memory
+    vAd = new JC.VectorD( vAh.length, vAh ) # Assign vAh value to Device memory
+    vBd = new JC.VectorD( vAh.length, vAh ) # Assgin same value to vBd
+
+    vAd.add( vBd ) # vAd = vAd + vBd
+
+    vAd.copyTo( vAd.length, vAh ) # Copy value to Host from Device memory
+
+    # Although Device memory will be freed automatically,
+    # it is recommanded to 'destroy' it explicitly,
+    # give back device memory to GPU for better performance
+    vAd.destroy()
+    console.log( #{ vAh } ) # output the result
+    JC.cudaDeviceReset()    # Before program exits</code></pre>
+            <h2>Unit test</h2>
+            <p>If you want to do unit tests, or take them as examples, please goto "./Pre-build" folder and copy whole "unit_test" folder into your module directory which contains ["JC.js", "jc.node", "JSCUDA.dll"].<br>Then open the terminal in module's directory and input
+            </p>
+            <pre><code>E:\expamles&gt;npm install</code></pre>
+            <p>to install dependencies:
+                1. mocha ^2.5.3 ( JavaScript test framework )
+                2. colors ^1.1.2 ( Color and style outputs in node.js console )
+                ( It's totally OK to install them globally as npm package by <code>npm install mocha -g</code> and <code>npm install colors -g</code> )
+
+            </p>
+            <p>And now you can run test:
+            </p>
+            <pre><code>E:\expamles&gt;mocha ${testname}.js</code></pre>
+
+            </p>
+            <h2>API Reference &amp; Guide</h2>
+            <p>[<a href="https://github.com/CallmeNezha/JSCUDA/wiki/">https://github.com/CallmeNezha/JSCUDA/wiki/</a>]
+        </div>
+    </div>
 </div>
 
 
