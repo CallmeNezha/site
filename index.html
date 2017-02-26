@@ -31,8 +31,8 @@
                 <h4>ZJ Jiang (NeZha)</h4>
                 <p>Shanghai Maritime University</p>
                 <p>I worked for IBM and EA in 2012-2014 as software engineer(mainly focus on Graphics& 3D printing tech). 
-                    Principle 3D algorithm developer & architect at Lubansoft in 2015. Co-founder of PongoThink and consultant of PVLab at Chinese Academy of Sciences. 
-                Join in Hypereal as an Algorithm Researcher in aspect of VR& AR from 2016. </p>
+                    Principle 3D algorithm developer & architect at Lubansoft in 2015. Consultant of PVLab at Chinese Academy of Sciences. 
+                Join in Hypereal as an Algorithm Researcher in aspect of VR& AR from 2016 till now. </p>
             </div>
             <div class="medium-2 columns"></div>
         </div>
@@ -47,8 +47,11 @@
             demos[d].src = "";
         }
         switch (v) {
-            case "demo":
-                document.getElementById("demo").src="examples/particles_beta.html";
+            case "demo0":
+                document.getElementById("demo0").src="fluids/index.html";
+                break;
+            case "demo1":
+                document.getElementById("demo1").src="examples/particles_beta.html";
                 break;
             case "demo2":
                 document.getElementById("demo2").src="examples/pbd_cloth_ball.html";
@@ -69,7 +72,7 @@
                 document.getElementById("demo7").src="examples/texture_area_light.html";
                 break;
             case "demo8":
-                document.getElementById("demo8").src="http://dkc1.digikey.com/";
+                document.getElementById("demo8").src="";
                 break;
             default:
                 break;
@@ -79,29 +82,46 @@
 
 
 <div class="row">
-    <p>My current interests in
-        Physics-Based Animation & Interactive 3D ,particularly on real-time approaches.
-        Including rigid body, cloth, softbody(continuum material), fluids and fracturing simulation.
-        Machine learning & Data mining.
-        Numerical methods for science.
-        <br/>Feel free to contact me: <i class="fi-mail"></i> <a herf="mailto:783627014@qq.com">783627014@qq.com</a>
+    <p>
+        My sustained interests in <span style="color:cornflowerblue">Computer Graphics & Computatinal Geometry</span> for 
+        <span style="color:chocolate">Physics-Based Animation & Interactive 3D modeling</span>, particularly on real-time approaches.
+        Including rigid body, cloth, softbody(continuum material), fluids and fracturing simulation also Numerical methods for science.
+        <br/>
+        Have a great passion and Worked on <span style="color:goldenrod">Volume-Based Sculpturing </span>& <span style="color:dodgerblue">VR Helmet-Handle Tracking</span> System in Hypereal as well.
+        <br/>
+        On the aspect of Machine learning. I am currently working on <span style="color:darkviolet">Computer Vision <i class="fi-eye"></i></span>.
+        Including <span style="color:seagreen">scene semantics & classification & segmentation and reconstruction.</span> etc. based on RGB-D camera.
+        <br/>
+        Recently I am attracted into AI as well. And put some effort to <span style="color:slateblue">GAME AI</span>.
+        <br/>
+        Feel free to contact me: <i class="fi-mail"></i> <a herf="mailto:783627014@qq.com">783627014@qq.com</a>
     </p>
+    
     <ul class="tabs" data-tab>
         <h3>Here is my work</h3>
         <li class="tab-title active"><a href="#home">Physics Simulation & 3D Graphics</a></li>
+        <li class="tab-title"><a href="#menu0">Computer Vision & Machine Learning</a></li>
         <li class="tab-title"><a href="#menu1">JS CUDA Library</a></li>
     </ul>
     <div class="tabs-content">
+
+        <!-- Physics Simulation & 3D Graphics -->
         <div class="content active" id="home">
             <ul class="accordion" data-accordion>
                 <li class="accordion-navigation">
-                    <a href="#demo" onclick="changePage('demo')"><i class="fi-play-circle"></i> Wind tunnel with 4K particles</a>
+                    <a href="#demo0" onclick="changePage('demo0')"><i class="fi-play-circle"></i> Fluids simulation</a>
                     <div class="content active">
-                        <iframe id="demo"  class="demopage" src="examples/particles_beta.html" width="100%" height="600"}></iframe>
+                        <iframe id="demo0"  class="demopage" src="fluids/index.html" width="100%" height="600"}></iframe>
                     </div>
                 </li>
                 <li class="accordion-navigation">
-                    <a href="#demo2" onclick="changePage('demo2')"><i class="fi-play-circle"></i> Cloth simulation 2</a>
+                    <a href="#demo1" onclick="changePage('demo1')"><i class="fi-play-circle"></i> Wind tunnel with 4K particles</a>
+                    <div class="content">
+                        <iframe id="demo1"  class="demopage" src="" width="100%" height="600"}></iframe>
+                    </div>
+                </li>
+                <li class="accordion-navigation">
+                    <a href="#demo2" onclick="changePage('demo2')"><i class="fi-play-circle"></i> Cloth & Ball coupling</a>
                     <div class="content">
                         <iframe id="demo2" class="demopage" src="" width="100%" height="600"></iframe>
                     </div>
@@ -113,13 +133,13 @@
                     </div>
                 </li>
                 <li class="accordion-navigation">
-                    <a href="#demo4" onclick="changePage('demo4')"><i class="fi-play-circle"></i> Cloth by projective method</a>
+                    <a href="#demo4" onclick="changePage('demo4')"><i class="fi-play-circle"></i> Cloth by Projective Method</a>
                     <div class="content">
                         <iframe id="demo4" class="demopage" src="" width="100%" height="600"></iframe>
                     </div>
                 </li>
                 <li class="accordion-navigation">
-                    <a href="#demo5" onclick="changePage('demo5')"><i class="fi-play-circle"></i> Cloth simulation</a>
+                    <a href="#demo5" onclick="changePage('demo5')"><i class="fi-play-circle"></i> Cloth by Position Based Method</a>
                     <div class="content">
                         <iframe id="demo5" class="demopage" src="" width="100%" height="600"></iframe>
                     </div>
@@ -144,6 +164,30 @@
                 </li>
             </ul>
         </div>
+        <!-- Physics Simulation & 3D Graphics -->
+
+        <div class="content" id="menu0">
+            <h3> Depth image segmentation & resoning. </h3>
+            <img src="pic/depth-segmentation.gif" alt="GIF">
+            </br></br>
+            <h3> Some open-source </h3>
+            <h4> Simple DBSCAN </h4>
+            This is a C++ implementation of DBSCAN (Density-based spatial clustering of applications with noise) algorithm
+            </br>
+            <p>[<a href="https://github.com/CallmeNezha/SimpleDBSCAN">https://github.com/CallmeNezha/SimpleDBSCAN</a>]</p>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <!-- JS CUDA -->
         <div class="content" id="menu1">
             <h2>What is JC？ ( JS CUDA )</h2>
             <p>[<a href="https://github.com/CallmeNezha/JSCUDA/">https://github.com/CallmeNezha/JSCUDA/</a>]</p>
@@ -261,7 +305,7 @@
         </div>
     </div>
 </div>
-
+<!-- JS CUDA -->
 
 
 
