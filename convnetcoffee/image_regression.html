@@ -1,0 +1,291 @@
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>ConvNetCoffee demo: Image Painting</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap-slider/9.8.0/bootstrap-slider.min.js"></script>
+<link href="https://cdn.bootcss.com/bootstrap-slider/9.8.0/css/bootstrap-slider.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="./convnetcoffee.js"></script>
+
+
+
+<script type="text/javascript">
+
+var data, labels;
+var layer_defs, net, trainer;
+
+// create neural net
+var t = "layer_defs = [];\n\
+layer_defs.push({type:'input', out_sx:1, out_sy:1, out_depth:2}); // 2 inputs: x, y \n\
+layer_defs.push({type:'fc', num_neurons:40, activation:'relu'});\n\
+layer_defs.push({type:'fc', num_neurons:40, activation:'relu'});\n\
+layer_defs.push({type:'fc', num_neurons:40, activation:'relu'});\n\
+layer_defs.push({type:'fc', num_neurons:40, activation:'relu'});\n\
+layer_defs.push({type:'fc', num_neurons:40, activation:'relu'});\n\
+layer_defs.push({type:'fc', num_neurons:40, activation:'relu'});\n\
+layer_defs.push({type:'fc', num_neurons:40, activation:'relu'});\n\
+layer_defs.push({type:'regression', num_neurons:3}); // 3 outputs: r,g,b \n\
+\n\
+net = convnetcoffee.NetOf();;\n\
+net.makeLayers(layer_defs);\n\
+\n\
+trainer = convnetcoffee.TrainerOf(net, {learning_rate:0.01, momentum:0.9, batch_size:5, l2_decay:0.0});\n\
+";
+
+var batches_per_iteration = 100;
+var mod_skip_draw = 100;
+var smooth_loss = -1;
+
+
+
+
+function update(){
+  // forward prop the data
+  var W = nn_canvas.width;
+  var H = nn_canvas.height;
+
+  var p = oridata.data;
+
+  var v = convnetcoffee.VolOf(1,1,2);
+  var loss = 0;
+  var lossi = 0;
+  var N = batches_per_iteration;
+  for(var iters=0;iters<trainer.batch_size;iters++) {
+    for(var i=0;i<N;i++) {
+      // sample a coordinate
+      var x = convnetcoffee.lmath.randi(0, W);
+      var y = convnetcoffee.lmath.randi(0, H);
+      var ix = ((W*y)+x)*4;
+      var r = convnetcoffee.VolOf([p[ix]/255.0, p[ix+1]/255.0, p[ix+2]/255.0]); // r g b
+      v.w[0] = (x-W/2)/W;
+      v.w[1] = (y-H/2)/H;
+      var stats = trainer.train(v, r);
+      loss += stats.cost_loss;
+      lossi += 1;
+    }
+  }
+  loss /= lossi;
+
+  if(counter === 1) smooth_loss = loss;
+  if(counter % 2000 === 0) {
+    $("#slider").slider('setValue', Math.log(trainer.learning_rate / 2) / Math.LN10);
+    trainer.learning_rate /= 2;
+    $("#lr").html('Learning rate: ' + trainer.learning_rate);
+  }
+  else smooth_loss = 0.99*smooth_loss + 0.01*loss;
+
+  var t = '';
+  t += 'loss: ' + smooth_loss;
+  t += '<br>'
+  t += 'iteration: ' + counter;
+  $("#report").html(t);
+}
+
+function draw() {
+  if(counter % mod_skip_draw !== 0) return;
+
+  // iterate over all pixels in the target array, evaluate them
+  // and draw
+  var W = nn_canvas.width;
+  var H = nn_canvas.height;
+
+  var g = nn_ctx.getImageData(0, 0, W, H);
+  var v = convnetcoffee.VolOf(1, 1, 2);
+  for(var x=0;x<W;x++) {
+    v.w[0] = (x-W/2)/W;
+    for(var y=0;y<H;y++) {
+      v.w[1] = (y-H/2)/H;
+      var ix = ((W*y)+x)*4;
+      var r = net.forward(v);
+      g.data[ix+0] = Math.floor(255*r.w[0]);
+      g.data[ix+1] = Math.floor(255*r.w[1]);
+      g.data[ix+2] = Math.floor(255*r.w[2]);
+      g.data[ix+3] = 255; // alpha...
+    }
+  }
+  nn_ctx.putImageData(g, 0, 0);
+}
+
+function tick() {
+  counter += 1;
+  update();
+  draw();
+  
+
+  setTimeout(tick, 1);
+}
+
+function reload() {
+  counter = 0;
+  eval($("#layerdef").val());
+  //$("#slider").slider("value", Math.log(trainer.learning_rate) / Math.LN10);
+  //$("#lr").html('Learning rate: ' + trainer.learning_rate);
+}
+function refreshSwatch(val) {
+  trainer.learning_rate = Math.pow(10, val);
+  
+}
+
+var ori_canvas, nn_canvas, ori_ctx, nn_ctx, oridata;
+var sz = 200; // size of our drawing area
+var counter = 0;
+
+$(function() {
+    // dynamically load lena image into original image canvas
+    var image = new Image();
+    //image.src = "lena.png";
+    image.onload = function() {
+
+      ori_canvas = document.getElementById('canv_original');
+      nn_canvas = document.getElementById('canv_net');
+      ori_canvas.width = sz;
+      ori_canvas.height = sz;
+      nn_canvas.width = sz;
+      nn_canvas.height = sz;
+
+      ori_ctx = ori_canvas.getContext("2d");
+      nn_ctx = nn_canvas.getContext("2d");
+      ori_ctx.drawImage(image, 0, 0, sz, sz);
+      oridata = ori_ctx.getImageData(0, 0, sz, sz); // grab the data pointer. Our dataset.
+
+      // start the regression!
+      tick()
+    }
+    image.src = "./imgs/nezha.png";
+
+    // init put text into textarea
+    $("#layerdef").val(t);
+
+    // load the net
+    reload();
+
+    // set up slider for learning rate
+    $("#slider").slider({
+      min: -4,
+      max: -1,
+      step: 0.05,
+      value: Math.log(trainer.learning_rate) / Math.LN10
+    }).on("slide", function(slideEvt) {
+      $("#lr").html('Learning rate: ' + trainer.learning_rate);
+      refreshSwatch(slideEvt.value)
+    });
+
+
+    $("#lr").html('Learning rate: ' + trainer.learning_rate);
+
+    $("#f").on('change', function(ev) {
+      var f = ev.target.files[0];
+      var fr = new FileReader();
+      fr.onload = function(ev2) {
+        var image = new Image();
+        image.onload = function(){
+          ori_ctx.drawImage(image, 0, 0, sz, sz);
+          oridata = ori_ctx.getImageData(0, 0, sz, sz);
+          reload();
+        }
+        image.src = ev2.target.result;
+      };
+      fr.readAsDataURL(f);
+    });
+
+    $('.ci').click(function(){
+      var src = $(this).attr('src');
+      ori_ctx.drawImage(this, 0, 0, sz, sz);
+      oridata = ori_ctx.getImageData(0, 0, sz, sz);
+      reload();
+    });
+});
+
+</script>
+
+<style type="text/css">
+canvas { 
+    border: 1px solid #555;
+    margin-top: 10px;
+}
+
+#gallery img {
+  width: 195;
+  height: 195px;
+  display: inline-block;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1> ConvNetCoffee </h1>
+<p>
+  You can see this demo is exactly same as ConvNetJS written by @Karpathy (Stanford Deep Learning).
+  <br/>
+  I was deeply intrigued then decide to rewrite this whole project into CoffeeScript <i class="fa fa-coffee"></i> in a little functional programming way. (^0^)
+  <br/>
+  Despite all others said that you should not build wheels again. I think, as an Software Mechanist:
+  <blockquote class="blockquote"> Its the only way to truely understand how things work is dissecting then build it by yourself, while demons must hide inside the details and BUG you all the time.</blockquote>
+  ConvNetCoffee is composed by CoffeeScripts each contains only one specific part of Neural Network for me to fully study and easily understand.
+  <br/>
+  The network definition below can be tailored to generate various results, hope you have fun!
+</p>
+
+<p>Report questions/bugs/suggestions to <i class="fa fa-envelope"></i> 783627014@qq.com @NeZha.</p>
+
+<textarea id="layerdef" style="width:100%; height:350px; font-family:monospace; font-size: 14"></textarea>
+<br /><br  />
+<input id="buttontp" type="submit" value="reload network" onclick="reload();" style="width: 200px; height: 30px;"/>
+
+<div style="float: right;">
+Choose your own image: 
+<input id="f" type="file" />
+</div>
+
+<br>
+
+<div style="background-color: #EEE; padding: 10px; margin-top: 10px;">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col">
+        Original Image<br>
+        <canvas id="canv_original" style="width: 280px"></canvas>
+    </div>
+    <div class="col"></div>
+    <div class="col">
+      Neural Network output<br>
+      <canvas id="canv_net" style="width: 280px"></canvas>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
+
+<br>
+<div id="report"></div>
+<br>
+
+<div id="lr">Learning rate:</div>
+  <input id="slider" type="text" style="width: 100%"/>
+<div>The learning rate should probably be decreased over time (slide left) to let the network better overfit the training data. It's nice to not have to worry about overfitting.</div>
+
+<br><br>
+<div>
+  You can upload your own image above (click Choose File), or you can click on any of the images below to load them.
+</div>
+<div id="gallery">
+  <img src="imgs/cat.jpg" class="ci" />
+  <img src="imgs/nezha.png" class="ci" />
+</div>
+
+<br><br>
+
+</div>
+
+</body>
+</html>
+
